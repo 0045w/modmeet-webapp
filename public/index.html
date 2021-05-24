@@ -57,9 +57,12 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
+    </script>
 
-
-
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#submit').attr("disabled", true);
+        });
     </script>
 
     <div class="jumbotron text-center">
@@ -69,7 +72,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <form role="form">
+                <form role="form" action="result.html">
                     <div class="form-group">
 
                         <label for="InputName">
@@ -82,8 +85,8 @@
                         <label for="InputDate">
                             วันที่จัดกิจกรรม
                         </label>
-                        <input type="datetime-local" class="form-control" id="InputDate" name="InputDatetime"
-                            timedatetime="YYYY-MM-DDThh:mm:ssTZD" required />
+                        <input type="datetime-local" class="form-control" id="InputDate" name="InputDatetime" 
+                             timedatetime="YYYY-MM-DDThh:mm:ssTZD" required />
                     </div>
                     <div class="form-group">
 
