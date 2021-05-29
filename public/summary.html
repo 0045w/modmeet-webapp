@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>ตรวจสอบข้อมูลกิจกรรม</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<style>
+		.jumbotron {
+			color: white;
+			background-color: #f04e23;
+		}
+
+		.jumbotron {
+			min-height: 10px;
+		}
+
+		#footer-wrapper {
+			margin-top: 1em;
+			border-top: 2em solid #808080;
+			text-align: center;
+		}
+
+		#marginleft {
+			margin-left: 1em;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-storage.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyBVpeoG6jU9nO8kLCe682WtmVNfcmFqH3s",
+            authDomain: "mod-meetup.firebaseapp.com",
+            databaseURL: "https://mod-meetup-default-rtdb.firebaseio.com",
+            projectId: "mod-meetup",
+            storageBucket: "mod-meetup.appspot.com",
+            messagingSenderId: "252829861590",
+            appId: "1:252829861590:web:753ee2cb79e84cf1862b77",
+            measurementId: "G-T0Q970NMXF"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+
+	<div class="jumbotron text-center">
+		<h2>ตรวจสอบข้อมูลกิจกรรม</h2>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<b>ชื่อกิจกรรม</b>
+				<p id="event_name"></p>
+				<b>วันที่จัดกิจกรรม</b>
+				<p id="event_date"></p>
+				<b>เวลาปิดรับสมัคร</b>
+				<p id="closing_date"></p>
+				<b>สถานที่จัดกิจกรรม</b>
+				<p id="event_place"></p>
+				<b>ข้อมูลติดต่อผู้จัดกิจกรรม</b>
+				<div id="marginleft">
+					<b>Email</b>
+					<p id="email"></p>
+					<b>เบอร์โทรศัพท์</b>
+					<p id="tel"></p>
+				</div>
+				<b>จำนวนผู้เข้าร่วมสูงสุด</b>
+				<p id="max_enroll"></p>
+				<b>คณะที่สามารถเข้าร่วมได้</b>
+				<p id="faculty"></p>
+				<b>ชั่วโมงกิจกรรมที่ได้รับ</b>
+				<div id="marginleft">
+					<b>ชั่วโมงกิจกรรมนักศีกษา</b>
+					<p id="activity"></p>
+					<b>ชั่วโมงจิตอาสา</b>
+					<p id="volunteer"></p>
+					<b>ชั่วโมงปัจฉิมนิเทศ</b>
+					<p id="post"></p>
+				</div>
+				<b>คำอธิบาย</b>
+				<p id="description"></p>
+				<b>รูปภาพโปสเตอร์กิจกรรม</b><br> <img src="" id="event_pic" class="img-thumbnail" /><br>
+				<div class="text-center">
+					<button class="btn btn-primary btn-lg" style="background-color:#f04e23"
+						id="confirm">Confirm</button>
+					<button class="btn btn-primary btn-lg" style="background-color:#808080"
+						onclick="sessionStorage.clear();history.back();">Return</button>
+				</div>
+				<div class="span-24 last" id="footer-wrapper"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		document.getElementById("event_name").innerHTML = sessionStorage.getItem("event_name");
+		document.getElementById("event_date").innerHTML = sessionStorage.getItem("event_date");
+		document.getElementById("closing_date").innerHTML = sessionStorage.getItem("closing_date");
+		document.getElementById("event_place").innerHTML = sessionStorage.getItem("event_place");
+		document.getElementById("email").innerHTML = sessionStorage.getItem("email");
+		document.getElementById("tel").innerHTML = sessionStorage.getItem("tel");
+		document.getElementById("max_enroll").innerHTML = sessionStorage.getItem("max_enroll");
+		document.getElementById("faculty").innerHTML = sessionStorage.getItem("faculty");
+		document.getElementById("activity").innerHTML = sessionStorage.getItem("activity");
+		document.getElementById("volunteer").innerHTML = sessionStorage.getItem("volunteer");
+		document.getElementById("post").innerHTML = sessionStorage.getItem("post");
+		document.getElementById("description").innerHTML = sessionStorage.getItem("description");
+		document.getElementById("event_pic").src = sessionStorage.getItem("event_pic");
+		
+		var event_name = sessionStorage.getItem("event_name");
+		var event_date = sessionStorage.getItem("event_date");
+		var closing_date = sessionStorage.getItem("closing_date");
+		var event_place = sessionStorage.getItem("event_place");
+		var email = sessionStorage.getItem("email");
+		var tel = sessionStorage.getItem("tel");
+		var max_enroll = sessionStorage.getItem("max_enroll");
+		var activity = sessionStorage.getItem("activity");
+		var volunteer = sessionStorage.getItem("volunteer");
+		var post = sessionStorage.getItem("post");
+		var description = sessionStorage.getItem("description");
+		var event_pic = sessionStorage.getItem("event_pic");
+
+		const time = new Date();
+		const timestamp = time.toString();
+		const database = firebase.firestore();
+		confirmButton = document.getElementById('confirm');
+		confirmButton.addEventListener('click', e => {
+			e.preventDefault();
+			var event_date_timeline = new Date(event_date);
+			var closing_date_timeline = new Date(closing_date);
+			var arrayOfFaculty = sessionStorage.getItem("facultyList");
+			
+			if (!event_pic) {
+				event_pic = 'https://firebasestorage.googleapis.com/v0/b/mod-meetup.appspot.com/o/1200px-No_image_3x4.svg.png?alt=media&token=50f302d8-52ce-4ddc-9b88-346f9926c8a7'
+			}
+			database.collection('event').where('event_name', '==', event_name).get()
+				.then((docSnapshot) => {
+					if (!docSnapshot.empty) {
+						console.log('Doc Exist')
+						alert('ชื่อกับกิจกรรมซํ้ากับในระบบ กรุณากรอกชื่อใหม่')
+					}
+					else {
+						console.log('Doc does not Exist')
+						database.collection('event').doc(timestamp).set({
+							event_name: event_name,
+							description: description,
+							event_pic: event_pic,
+							event_place: event_place,
+							faculty: arrayOfFaculty.split(","),
+							max_enroll: parseInt(max_enroll),
+							closing_date: closing_date_timeline,
+							event_date: event_date_timeline,
+							earning_hour: { activity: parseInt(activity), post: parseInt(post), volunteer: parseInt(volunteer) },
+							organizer_info: { email: email, tel: tel },
+							listParticipant: []
+						})
+							.then(() => {
+								console.log('Event Created !');
+								window.location.replace("result.html");
+								//window.location.reload();
+							})
+							.catch(error => { console.error(error) });
+					}
+				});
+		});
+	</script>
+
+</body>
+
+</html>
