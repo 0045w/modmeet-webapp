@@ -71,7 +71,7 @@ submitButton.addEventListener('click', e => {
         event_pic = 'https://firebasestorage.googleapis.com/v0/b/mod-meetup.appspot.com/o/1200px-No_image_3x4.svg.png?alt=media&token=50f302d8-52ce-4ddc-9b88-346f9926c8a7'
     }
 
-    database.collection('event').doc(timestamp).set({
+    database.collection('event').doc(event_name).set({
         event_name: event_name.value,
         description: description.value,
         event_pic: event_pic,
@@ -81,7 +81,8 @@ submitButton.addEventListener('click', e => {
         closing_date: closing_date_timeline,
         event_date: event_date_timeline,
         earning_hour: { activity: activity.valueAsNumber, post: post.valueAsNumber, volunteer: volunteer.valueAsNumber },
-        organizer_info: { email: email.value, facebook: facebook.value, line: line.value, tel: tel.value }
+        organizer_info: { email: email.value, facebook: facebook.value, line: line.value, tel: tel.value },
+        dateCreate: timestamp
     })
         .then(() => { console.log('Event Created !'); })
         .catch(error => { console.error(error) });
