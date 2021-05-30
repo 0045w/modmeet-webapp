@@ -154,7 +154,7 @@
 					}
 					else {
 						console.log('Doc does not Exist')
-						database.collection('event').doc(timestamp).set({
+						database.collection('event').doc(event_name).set({
 							event_name: event_name,
 							description: description,
 							event_pic: event_pic,
