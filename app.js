@@ -71,7 +71,7 @@ submitButton.addEventListener('click', e => {
         event_pic = 'https://firebasestorage.googleapis.com/v0/b/mod-meetup.appspot.com/o/1200px-No_image_3x4.svg.png?alt=media&token=50f302d8-52ce-4ddc-9b88-346f9926c8a7'
     }
 
-    database.collection('event').doc(event_name).set({
+    database.collection('event').doc(String(event_name)).set({
         event_name: event_name.value,
         description: description.value,
         event_pic: event_pic,
